@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  </head>
+  <body>
+    <form>
+      Tweet: <input id="tweet" type="text" name="tweet"><br>
+      <input type="submit" value="Submit" onclick="submitForm();">
+    </form>
+
+    <script>
+
+      fetch('http://localhost:3000/tweeters.json', {
+        method: 'GET',
+      }).then((response) => {
+      return response.json();
+    }).then((myJson) => {
+      myJson.forEach(function(tweet) {
+        $('body').append(`<ul class="list-group"><li class="list-group-item">Tweet content: ${tweet.message}</li></ul>`)
+      })
+    });
+
+    function submitForm() {
+      const content = document.getElementById("tweet").value;
+      $.ajax({
+        type: 'POST',
+        url: 'http://localhost:3000/tweeters.json',
+        data: { tweeter: {message: content }},
+        success: function(data,textStatus,xhr) {
+          alert('Hello'),
+          $('body').append(`<ul class="list-group"><li class="list-group-item">Tweet content: ${tweet.message}</li></ul>`)
+          }
+      });
+    };
+  //
+  //   $.ajax({
+  //   type: 'POST',
+  //   data: { student: {name: 'Jim', location: 'USS Enterprise' } },
+  //   url: 'http://localhost:3000/students.json',
+  //   success: function(data,textStatus,xhr) {
+  //     console.log(xhr.status),
+  //     $('body').append(`<h2>${data.name} is in ${data.location}.</h2>`)
+  //     }
+  // })
+
+// document.getElementById("myForm").submit();
+
+    // $.ajax({
+    //      type: 'GET',
+    //      url: 'http://localhost:3000/tweeters.json',
+    //      success: function(response, textStatus, xhr) {
+    //        if (xhr.status === 200 || xhr.status === 201) {
+    //          response.forEach(function(tweet) {
+    //            $('body').append(`<ul class="list-group"><li class="list-group-item">Tweet content: ${tweet.message}</li></ul>`)
+    //          })
+    //        } else {
+    //          console.log(`Reached server but a ${xhr.status} error occurred`)
+    //        }
+    //      },
+    //      error: function() {
+    //        console.log('Could not connect to the server.')
+    //      }
+    //    })
+
+    // let req = new XMLHttpRequest();
+    // req.open('GET', 'https://randomuser.me/api/', true)
+    // req.onload = function() {
+    //   if (req.status === 200) {
+    //     console.log(req.responseText)
+    //   } else {
+    //     console.log(`Reached server. but ${req.status} occured.`)
+    //   }
+    // }
+    // req.onerror = function() {
+    //   console.log('Could not connect to server!')
+    // }
+    // req.send()
+    </script>
+  </body>
+</html>
