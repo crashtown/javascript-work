@@ -11,8 +11,12 @@ values({one: 1, two: 2, three: 3});
 */
 
 // Your code here!
-const values = () => {
-  return Object.keys(values);
+const values = (whatever) => {
+  let prop = [];
+    for(let o in whatever) {
+      prop.push(whatever[o]);
+    }
+  return prop
 }
 
 // Check your solution by running these tests: mocha *this_filename*

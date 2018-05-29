@@ -19,5 +19,18 @@
 */
 
 function arrayEqual(a, b) {
-  // Your code here. Don't use stringify ;)
+ // Your code here. Don't use stringify :wink:
+ if (a.length !== b.length) {
+   return false
+ }
+ for (let i = 0; i < a.length; i++) {
+   if (a[i] instanceof Array) {
+     if (!arrayEqual(a[i], b[i])) {
+       return false
+     }
+   } else if (a[i] !== b[i]) {
+     return false
+   }
+ }
+ return true
 }
